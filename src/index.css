@@ -1,0 +1,265 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  color-scheme: light;
+  font-family:
+    Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+:root.dark {
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+}
+
+button,
+a,
+input,
+textarea {
+  border-radius: 14px;
+}
+
+button,
+a {
+  transition:
+    transform 180ms ease,
+    border-color 180ms ease,
+    background 180ms ease,
+    color 180ms ease,
+    box-shadow 180ms ease;
+}
+
+button:hover,
+a:hover {
+  transform: translateY(-1px);
+}
+
+.section-shell {
+  width: min(1240px, calc(100% - 2rem));
+  margin-inline: auto;
+  position: relative;
+  z-index: 1;
+}
+
+.glass-panel {
+  border: 1px solid rgba(148, 163, 184, 0.24);
+  background: rgba(255, 255, 255, 0.72);
+  box-shadow: 0 24px 80px rgba(8, 26, 51, 0.12);
+  backdrop-filter: blur(18px);
+  border-radius: 24px;
+}
+
+.dark .glass-panel {
+  border-color: rgba(255, 255, 255, 0.12);
+  background: rgba(15, 23, 42, 0.72);
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.34);
+}
+
+.nav-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.62rem 0.9rem;
+  color: rgb(51, 65, 85);
+  font-size: 0.875rem;
+  font-weight: 800;
+}
+
+.nav-pill:hover {
+  background: rgba(245, 158, 11, 0.16);
+  color: #9d1b32;
+}
+
+.dark .nav-pill {
+  color: rgb(226, 232, 240);
+}
+
+.primary-btn,
+.secondary-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 44px;
+  padding: 0.78rem 1.05rem;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.primary-btn {
+  background: linear-gradient(135deg, #9d1b32, #eab308);
+  color: white;
+  box-shadow: 0 18px 44px rgba(157, 27, 50, 0.28);
+}
+
+.secondary-btn {
+  border: 1px solid rgba(148, 163, 184, 0.32);
+  background: rgba(255, 255, 255, 0.74);
+  color: #081a33;
+}
+
+.dark .secondary-btn {
+  border-color: rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.08);
+  color: white;
+}
+
+.hero-museum {
+  min-height: 460px;
+  border-radius: 22px;
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 78% 18%, rgba(250, 204, 21, 0.3), transparent 24%),
+    linear-gradient(180deg, rgba(8, 26, 51, 0.08), rgba(8, 26, 51, 0.78)),
+    linear-gradient(135deg, #0f2a4a, #7a1024 58%, #081a33);
+  background-size: cover;
+  background-position: center;
+}
+
+.hero-museum::before {
+  content: "";
+  position: absolute;
+  inset: 12%;
+  border: 1px solid rgba(250, 204, 21, 0.34);
+  border-radius: 999px;
+  animation: orbitPulse 4s ease-in-out infinite;
+}
+
+.hero-museum::after {
+  content: "Parlimen • Keris • Wau • Songket • Melaka";
+  position: absolute;
+  inset: auto 1.25rem 1.25rem 1.25rem;
+  min-height: 170px;
+  border-radius: 20px;
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+  color: rgba(255, 255, 255, 0.88);
+  font-weight: 900;
+  text-align: center;
+  background:
+    linear-gradient(90deg, rgba(250, 204, 21, 0.18), rgba(255, 255, 255, 0.08)),
+    repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.13) 0 2px, transparent 2px 18px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.flash-card {
+  width: 100%;
+  min-height: 260px;
+  padding: 1.25rem;
+  text-align: left;
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  box-shadow: inset 0 1px rgba(255, 255, 255, 0.25), 0 20px 60px rgba(15, 23, 42, 0.22);
+  touch-action: manipulation;
+}
+
+.activity-card {
+  min-height: 100%;
+  border: 1px solid rgba(148, 163, 184, 0.24);
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.76);
+  padding: 1rem;
+  box-shadow: 0 16px 42px rgba(8, 26, 51, 0.1);
+}
+
+.dark .activity-card {
+  border-color: rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.blue-card {
+  background:
+    linear-gradient(135deg, rgba(8, 26, 51, 0.94), rgba(14, 116, 144, 0.85)),
+    radial-gradient(circle at top right, rgba(250, 204, 21, 0.4), transparent 32%);
+}
+
+.gold-card {
+  background:
+    linear-gradient(135deg, rgba(120, 53, 15, 0.95), rgba(234, 179, 8, 0.82)),
+    radial-gradient(circle at top right, rgba(255, 255, 255, 0.34), transparent 34%);
+}
+
+.maroon-card {
+  background:
+    linear-gradient(135deg, rgba(92, 11, 27, 0.96), rgba(157, 27, 50, 0.9)),
+    radial-gradient(circle at top right, rgba(250, 204, 21, 0.36), transparent 34%);
+}
+
+.kbat-card {
+  border-radius: 24px;
+  border: 1px solid rgba(251, 191, 36, 0.36);
+  color: white;
+  background:
+    radial-gradient(circle at top right, rgba(251, 191, 36, 0.26), transparent 38%),
+    linear-gradient(135deg, #5c0b1b, #9d1b32 54%, #081a33);
+  box-shadow:
+    0 30px 90px rgba(157, 27, 50, 0.28),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+}
+
+@keyframes orbitPulse {
+  0%,
+  100% {
+    transform: rotate(0deg) scale(1);
+    opacity: 0.5;
+  }
+  50% {
+    transform: rotate(10deg) scale(1.06);
+    opacity: 0.9;
+  }
+}
+
+@media (max-width: 720px) {
+  body {
+    padding-bottom: 5rem;
+  }
+
+  .section-shell {
+    width: min(100% - 1rem, 1240px);
+  }
+
+  .glass-panel,
+  .kbat-card {
+    border-radius: 18px;
+  }
+
+  .primary-btn,
+  .secondary-btn {
+    width: 100%;
+    justify-content: center;
+    min-height: 48px;
+  }
+
+  .flash-card {
+    min-height: 230px;
+    padding: 1rem;
+  }
+
+  .hero-museum {
+    min-height: 340px;
+  }
+
+  .hero-museum::after {
+    min-height: 128px;
+    font-size: 0.9rem;
+  }
+}
