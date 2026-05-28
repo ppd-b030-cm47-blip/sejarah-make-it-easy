@@ -404,36 +404,6 @@ const chapterStudyContent = {
   },
 }
 
-const malaysiaVisuals = [
-  { label: 'Bangunan Parlimen Malaysia', motif: 'parliament', tone: '#0f2a4a' },
-  { label: 'Istana dan institusi raja', motif: 'palace', tone: '#7a1024' },
-  { label: 'Keris sebagai lambang warisan', motif: 'keris', tone: '#8a5b13' },
-  { label: 'Wau bulan dan seni rakyat', motif: 'wau', tone: '#0f766e' },
-  { label: 'Songket dan ragam hias Melayu', motif: 'songket', tone: '#5b21b6' },
-  { label: 'Kota A Famosa Melaka', motif: 'fort', tone: '#92400e' },
-  { label: 'Peta Semenanjung, Sabah dan Sarawak', motif: 'map', tone: '#166534' },
-  { label: 'Pelabuhan dan perdagangan Alam Melayu', motif: 'ship', tone: '#075985' },
-  { label: 'Dokumen perlembagaan negara', motif: 'document', tone: '#9d1b32' },
-  { label: 'Masyarakat majmuk Malaysia', motif: 'people', tone: '#1d4ed8' },
-]
-
-const malaysiaImage = (visual, chapter, theme, index) => {
-  const motif = {
-    parliament: '<rect x="180" y="142" width="280" height="120" rx="8" fill="#f8fafc"/><rect x="205" y="104" width="230" height="50" rx="8" fill="#facc15"/><path d="M232 104h176l-88-48z" fill="#fee08a"/><g fill="#0f172a"><rect x="220" y="164" width="24" height="80"/><rect x="272" y="164" width="24" height="80"/><rect x="324" y="164" width="24" height="80"/><rect x="376" y="164" width="24" height="80"/></g>',
-    palace: '<path d="M150 242h340v-92l-64-42-58 42-58-62-58 62-58-42-44 42z" fill="#f8fafc"/><path d="M252 150l58-62 58 62z" fill="#facc15"/><rect x="285" y="178" width="70" height="64" rx="35" fill="#7a1024"/>',
-    keris: '<path d="M332 66c28 32-20 48 10 82 22 25-18 48 8 82l-34 22c-32-44 16-62-8-90-24-29 18-52-10-82z" fill="#e5e7eb"/><rect x="170" y="238" width="250" height="22" rx="11" fill="#facc15"/><rect x="218" y="212" width="112" height="44" rx="18" fill="#7a1024"/>',
-    wau: '<path d="M322 92c74 0 112 56 112 56s-70 4-92 42c-8 15-20 38-20 38s-12-23-20-38c-22-38-92-42-92-42s38-56 112-56z" fill="#facc15"/><path d="M322 100v148M238 148c48 14 83 42 84 80M406 148c-48 14-83 42-84 80" stroke="#7a1024" stroke-width="10" fill="none" stroke-linecap="round"/>',
-    songket: '<g fill="#facc15"><rect x="130" y="84" width="380" height="188" rx="18" opacity=".95"/><path d="M160 116h320M160 156h320M160 196h320M160 236h320M200 96v160M260 96v160M320 96v160M380 96v160M440 96v160" stroke="#7a1024" stroke-width="7"/></g>',
-    fort: '<path d="M150 242h340v-120h-44v-34h-56v34h-46v-34h-56v34h-46v-34h-56v34h-36z" fill="#d6b284"/><path d="M280 242v-72c0-32 80-32 80 0v72z" fill="#5b2d12"/>',
-    map: '<path d="M262 76c34 22 20 68 54 92 22 16 46 12 54 44 6 24-16 54-48 48-54-10-50-70-92-92-28-15-42-44-22-72 12-16 32-26 54-20zM420 196c42 0 76 24 82 54-42 20-94 14-126-14 6-24 20-40 44-40z" fill="#bbf7d0"/><path d="M132 230c40-36 78-36 118 0" stroke="#facc15" stroke-width="12" fill="none"/>',
-    ship: '<path d="M150 218h342l-42 54H198z" fill="#92400e"/><path d="M318 80v132M318 92l-94 86h94zM324 102l100 76H324z" stroke="#f8fafc" stroke-width="10" fill="#facc15" stroke-linejoin="round"/><path d="M142 286c38-14 76-14 114 0s76 14 114 0 76-14 114 0" stroke="#bae6fd" stroke-width="12" fill="none" stroke-linecap="round"/>',
-    document: '<rect x="190" y="70" width="260" height="230" rx="18" fill="#f8fafc"/><path d="M236 126h168M236 166h168M236 206h120" stroke="#9d1b32" stroke-width="12" stroke-linecap="round"/><circle cx="388" cy="244" r="34" fill="#facc15"/>',
-    people: '<circle cx="240" cy="134" r="38" fill="#facc15"/><circle cx="322" cy="124" r="42" fill="#f8fafc"/><circle cx="408" cy="134" r="38" fill="#fca5a5"/><path d="M170 270c14-68 126-68 140 0M254 270c16-76 136-76 152 0M338 270c14-68 126-68 140 0" fill="#0f172a" opacity=".82"/>',
-  }[visual.motif]
-  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="900" height="620" viewBox="0 0 640 360"><defs><linearGradient id="g" x1="0" x2="1" y1="0" y2="1"><stop stop-color="${visual.tone}"/><stop offset="1" stop-color="#081a33"/></linearGradient><pattern id="batik" width="42" height="42" patternUnits="userSpaceOnUse"><path d="M21 2c8 9 14 15 19 19-5 4-11 10-19 19C13 31 7 25 2 21 7 17 13 11 21 2z" fill="none" stroke="#facc15" stroke-opacity=".22" stroke-width="2"/></pattern></defs><rect width="640" height="360" fill="url(#g)"/><rect width="640" height="360" fill="url(#batik)"/><circle cx="548" cy="58" r="74" fill="#facc15" opacity=".18"/><circle cx="86" cy="306" r="96" fill="#ffffff" opacity=".08"/>${motif}<text x="44" y="48" fill="#fff7ed" font-family="Arial, sans-serif" font-size="24" font-weight="800">${visual.label}</text><text x="44" y="326" fill="#fde68a" font-family="Arial, sans-serif" font-size="18" font-weight="700">Topik: ${theme}</text><text x="44" y="300" fill="#ffffff" font-family="Arial, sans-serif" font-size="15" opacity=".86">${chapter} • Visual ${index + 1}</text></svg>`
-  return `data:image/svg+xml;utf8,${encodeURIComponent(svg)}`
-}
-
 const kbatTypes = [
   'Analisis',
   'Situasi sejarah',
@@ -441,6 +411,27 @@ const kbatTypes = [
   'Garis masa interaktif',
   'Debat dan pendapat',
 ]
+
+const makeKbatAnswer = (chapter, themes, index) => {
+  const details = chapterDetails[chapter]
+  const study = chapterStudyContent[chapter]
+  const theme = themes[index % themes.length]
+  const note = study.notes[index % study.notes.length]
+  const term = study.terms[index % study.terms.length]
+  const date = study.dates[index % study.dates.length]
+  const thinking = details.thinking[index % details.thinking.length]
+  const value = details.values[index % details.values.length]
+  const people = chapterPeople[chapter]?.[index % chapterPeople[chapter].length]
+
+  return [
+    `Pendirian: ${theme} penting dalam ${chapter} kerana membantu menjelaskan perkembangan negara secara tersusun dan berasaskan bukti.`,
+    `Bukti buku teks: ${note} Istilah berkaitan ialah ${term[0]}, iaitu ${term[1]}`,
+    `Kronologi atau contoh: ${date[0]} - ${date[1]}${people ? ` Pihak/tokoh berkaitan: ${people}.` : ''}`,
+    `Huraian KBAT: Murid perlu menghubungkan sebab, tindakan dan kesan supaya jawapan tidak sekadar menghafal fakta.`,
+    `Nilai dan DSKP: Jawapan yang baik menunjukkan ${thinking.toLowerCase()} serta menonjolkan nilai ${value.toLowerCase()}.`,
+    `Kesimpulan: Pengajaran daripada ${chapter} boleh diaplikasikan untuk membina warganegara yang bertanggungjawab, patriotik dan mampu membuat keputusan secara rasional.`,
+  ].join(' ')
+}
 
 const makeCards = (chapter, themes) => {
   const study = chapterStudyContent[chapter]
@@ -465,7 +456,7 @@ const makeCards = (chapter, themes) => {
     id: `fakta-${chapter}-${index}`,
     type: 'Fakta',
     level: ['mudah', 'sederhana', 'tinggi'][index % 3],
-    front: `Poin penting ${index + 1}: ${themes[index % themes.length]}`,
+    front: `Isi penting ${index + 1}: ${themes[index % themes.length]}`,
     back: note,
   }))
 
@@ -477,21 +468,31 @@ const makeCards = (chapter, themes) => {
     back: `Terangkan peranan ${peopleList[index]} dalam ${chapter}. Jawapan yang baik menyatakan latar, tindakan, kesan kepada negara dan nilai kewarganegaraan yang boleh dicontohi.`,
   }))
 
-  const kbat = Array.from({ length: 10 }, (_, index) => ({
-    id: `kbat-${chapter}-${index}`,
-    type: 'KBAT',
-    level: ['mudah', 'sederhana', 'tinggi'][index % 3],
-    mode: kbatTypes[index % kbatTypes.length],
-    front: [
-      `Mengapakah ${themes[index % themes.length]} penting dalam memahami ${chapter}?`,
-      `Jika anda pemimpin pada zaman ${chapter}, apakah keputusan yang wajar dibuat?`,
-      `Analisis visual berkaitan ${themes[index % themes.length]} dan buat inferens sejarah.`,
-      `Susun peristiwa utama ${chapter} mengikut urutan sebab, peristiwa dan kesan.`,
-      `Setuju atau tidak: ${chapter} masih mempengaruhi kehidupan moden. Berikan hujah.`,
-    ][index % kbatTypes.length],
-    back: `Contoh jawapan perlu mengandungi kata kunci: ${themes.slice(0, 3).join(', ')}. Hujah yang baik menyatakan konteks, bukti, kesan dan pengajaran kepada masyarakat hari ini.`,
-    keywords: themes.slice(0, 4),
-  }))
+  const kbat = Array.from({ length: 10 }, (_, index) => {
+    const suggestedAnswer = makeKbatAnswer(chapter, themes, index)
+    return {
+      id: `kbat-${chapter}-${index}`,
+      type: 'KBAT',
+      level: ['mudah', 'sederhana', 'tinggi'][index % 3],
+      mode: kbatTypes[index % kbatTypes.length],
+      front: [
+        `Mengapakah ${themes[index % themes.length]} penting dalam memahami ${chapter}?`,
+        `Jika anda pemimpin pada zaman ${chapter}, apakah keputusan yang wajar dibuat?`,
+        `Analisis visual berkaitan ${themes[index % themes.length]} dan buat inferens sejarah.`,
+        `Susun peristiwa utama ${chapter} mengikut urutan sebab, peristiwa dan kesan.`,
+        `Setuju atau tidak: ${chapter} masih mempengaruhi kehidupan moden. Berikan hujah.`,
+      ][index % kbatTypes.length],
+      back: suggestedAnswer,
+      suggestedAnswer,
+      answerGuide: [
+        'Nyatakan pendirian dengan jelas.',
+        'Gunakan sekurang-kurangnya satu fakta buku teks.',
+        'Huraikan sebab dan kesan.',
+        'Kaitkan dengan nilai kewarganegaraan atau pengajaran.',
+      ],
+      keywords: [...themes.slice(0, 4), ...study.terms.slice(0, 2).map(([term]) => term)],
+    }
+  })
 
   return { facts: [...definitions, ...dates, ...facts], people, kbat }
 }
@@ -572,30 +573,15 @@ const makeQuiz = (chapter) => {
   return { setA, setB }
 }
 
-const makeGallery = (chapter, themes) =>
-  [
-    ...(notebookMaterials[chapter]?.images ?? []).map(([title, src], index) => ({
+const makeGallery = (chapter) =>
+  (notebookMaterials[chapter]?.images ?? []).map(([title, src], index) => ({
       title,
       img: assetUrl(src),
       caption: `Infografik NotebookLM untuk ${chapter}.`,
       prompt: `Apakah maklumat utama dan inferens sejarah daripada infografik ini? Hubungkan dengan ${chapter}.`,
       source: 'NotebookLM',
       index,
-    })),
-    ...Array.from({ length: 10 }, (_, index) => ({
-    title: malaysiaVisuals[index % malaysiaVisuals.length].label,
-    img: malaysiaImage(
-      malaysiaVisuals[index % malaysiaVisuals.length],
-      chapter,
-      themes[index % themes.length],
-      index,
-    ),
-    caption: `Visual berunsur budaya Malaysia untuk menerangkan ${themes[index % themes.length]} dalam ${chapter}.`,
-    prompt: `Apakah inferens anda berdasarkan visual ini? Hubungkan dengan ${chapter}.`,
-    source: 'Ilustrasi aplikasi',
-    index,
-  })),
-  ].slice(0, 10)
+    }))
 
 const forms = formBlueprints.map((form) => ({
   ...form,
@@ -616,7 +602,7 @@ const forms = formBlueprints.map((form) => ({
       mindmap: [...themes, ...chapterDetails[title].values.slice(0, 2)],
       cards: makeCards(title, themes),
       quiz: makeQuiz(title, themes),
-      gallery: makeGallery(title, themes),
+      gallery: makeGallery(title),
     }
   }),
 }))
@@ -624,6 +610,7 @@ const forms = formBlueprints.map((form) => ({
 const navItems = [
   ['Utama', '#utama'],
   ['Bab', '#tingkatan'],
+  ['NotebookLM', '#bahan-notebook'],
   ['Kad KBAT', '#kad-kbat'],
   ['Kuiz', '#kuiz'],
   ['Galeri', '#galeri'],
@@ -646,6 +633,35 @@ const teacherMaterialLinks = (chapter) => {
     ['Aktiviti PdP 60 minit', `/bahan-guru/${base}-aktiviti-pdp.html`],
     ['Set kad visual', `/bahan-guru/${base}-kad-visual.html`],
   ]
+}
+
+const normalizeSearchText = (value) =>
+  value
+    .toLowerCase()
+    .replace(/[^\p{L}\p{N}\s-]/gu, ' ')
+    .replace(/\s+/g, ' ')
+    .trim()
+
+const chapterSearchIndex = (chapter, chapterNumber) => {
+  const terms = chapter.terms.flatMap(([term, meaning]) => [term, meaning])
+  const dates = chapter.dates.flatMap(([date, event]) => [date, event])
+  const people = chapterPeople[chapter.title] ?? []
+  return normalizeSearchText(
+    [
+      `bab ${chapterNumber}`,
+      `bab${chapterNumber}`,
+      chapter.title,
+      chapter.summary,
+      ...chapter.themes,
+      ...chapter.notes,
+      ...terms,
+      ...dates,
+      ...chapter.learning,
+      ...chapter.thinking,
+      ...chapter.values,
+      ...people,
+    ].join(' '),
+  )
 }
 
 function useLocalStorage(key, initialValue) {
@@ -719,11 +735,33 @@ function App() {
 
   const searchResults = useMemo(() => {
     if (!query.trim()) return []
-    const needle = query.toLowerCase()
+    const needle = normalizeSearchText(query)
+    const words = needle
+      .split(' ')
+      .filter((word) => word.length > 2)
     return allChapters
-      .filter((chapter) =>
-        [chapter.title, chapter.summary, ...chapter.themes].join(' ').toLowerCase().includes(needle),
-      )
+      .map((chapter) => {
+        const chapterNumber = forms[0].chapters.findIndex((item) => item.id === chapter.id) + 1
+        const indexText = chapterSearchIndex(chapter, chapterNumber)
+        const title = normalizeSearchText(chapter.title)
+        const titleHit = title.includes(needle) || needle.includes(title) ? 10 : 0
+        const chapterHit = indexText.includes(`bab ${chapterNumber}`) && (needle.includes(`bab ${chapterNumber}`) || needle.includes(`bab${chapterNumber}`)) ? 9 : 0
+        const exactHit = indexText.includes(needle) ? 6 : 0
+        const wordHits = words.filter((word) => indexText.includes(word)).length
+        const score = titleHit + chapterHit + exactHit + wordHits
+        const matchedTerm = chapter.terms.find(([term, meaning]) => normalizeSearchText(`${term} ${meaning}`).includes(needle))
+        const matchedDate = chapter.dates.find(([date, event]) => normalizeSearchText(`${date} ${event}`).includes(needle))
+        const matchLabel = matchedTerm
+          ? `Istilah: ${matchedTerm[0]}`
+          : matchedDate
+            ? `Tarikh: ${matchedDate[0]}`
+            : chapterHit
+              ? `Bab ${chapterNumber}`
+              : chapter.themes.find((theme) => normalizeSearchText(theme).includes(needle)) ?? 'Padanan kandungan'
+        return { ...chapter, chapterNumber, matchLabel, score }
+      })
+      .filter((chapter) => chapter.score > 0)
+      .sort((a, b) => b.score - a.score)
       .slice(0, 6)
   }, [allChapters, query])
 
@@ -856,7 +894,8 @@ function TopNav({ dark, setDark, musicOn, setMusicOn, query, setQuery, searchRes
                   }}
                   className="block w-full px-4 py-3 text-left text-sm hover:bg-amber-50 dark:hover:bg-white/10"
                 >
-                  Tingkatan {chapter.form}: {chapter.title}
+                  <span className="font-black">Bab {chapter.chapterNumber}: {chapter.title}</span>
+                  <span className="mt-1 block text-xs text-slate-500 dark:text-slate-300">{chapter.matchLabel}</span>
                 </button>
               ))}
             </div>
@@ -875,14 +914,15 @@ function MobileDock() {
   const items = [
     ['#utama', Landmark, 'Utama'],
     ['#tingkatan', GraduationCap, 'Bab'],
+    ['#bahan-notebook', BookOpen, 'Bahan'],
     ['#kad-kbat', Brain, 'KBAT'],
     ['#kuiz', ShieldCheck, 'Kuiz'],
     ['#galeri', GalleryHorizontalEnd, 'Galeri'],
   ]
   return (
-    <nav className="fixed bottom-3 left-2 right-2 z-50 grid grid-cols-5 rounded-2xl border border-white/30 bg-white/90 p-2 shadow-2xl backdrop-blur-xl dark:border-white/10 dark:bg-slate-950/90 sm:hidden">
+    <nav className="fixed bottom-3 left-2 right-2 z-50 grid grid-cols-6 rounded-2xl border border-white/30 bg-white/90 p-2 shadow-2xl backdrop-blur-xl dark:border-white/10 dark:bg-slate-950/90 sm:hidden">
       {items.map(([href, Icon, label]) => (
-        <a key={href} href={href} className="flex min-h-12 flex-col items-center justify-center gap-1 rounded-xl text-[0.68rem] font-black text-slate-700 dark:text-slate-100">
+        <a key={href} href={href} className="flex min-h-12 flex-col items-center justify-center gap-1 rounded-xl text-[0.62rem] font-black text-slate-700 dark:text-slate-100">
           <Icon className="size-4" />
           {label}
         </a>
@@ -1093,7 +1133,7 @@ function ChapterWorkspace({ form, chapter, progress, setProgress, addXp }) {
         <div className="glass-panel p-5">
           <button className="flex w-full items-center justify-between" onClick={() => setOpenNote((value) => !value)}>
             <span className="flex items-center gap-2 text-xl font-black">
-              <BookOpen className="size-5 text-[#9d1b32] dark:text-amber-300" /> Nota Ringkas Interaktif
+              <BookOpen className="size-5 text-[#9d1b32] dark:text-amber-300" /> Nota Ringkas
             </span>
             <ChevronDown className={`size-5 transition ${openNote ? 'rotate-180' : ''}`} />
           </button>
@@ -1110,7 +1150,7 @@ function ChapterWorkspace({ form, chapter, progress, setProgress, addXp }) {
                       <span className="mb-3 grid size-10 place-items-center rounded-xl bg-amber-200 text-[#081a33]">
                         {index + 1}
                       </span>
-                      <h4 className="font-black">Poin Penting</h4>
+                      <h4 className="font-black">Isi Penting</h4>
                       <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">{point}</p>
                     </motion.div>
                   ))}
@@ -1157,10 +1197,10 @@ function LearningActivities({ chapter }) {
   const previewImage = material.images?.[0]
 
   return (
-    <div className="mt-5">
+    <div id="bahan-notebook" className="scroll-mt-28 mt-5">
       <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
         <p className="flex items-center gap-2 font-black text-[#9d1b32] dark:text-amber-200">
-          <Sparkles className="size-4" /> Aktiviti Pembelajaran Bab
+          <Sparkles className="size-4" /> Bahan NotebookLM
         </p>
         <span className="rounded-full bg-amber-200/70 px-3 py-1 text-xs font-black text-[#081a33]">
           Infografik • Nota Padat • Nota Suara
@@ -1384,7 +1424,17 @@ function KbatArena({ chapter, progress, addXp }) {
           {feedback && (
             <div className="mt-5 rounded-2xl bg-white/10 p-4">
               <p className="font-black">Maklum Balas Automatik: {feedback.text}</p>
-              <p className="mt-2 text-sm text-white/80">Contoh jawapan: {card.back}</p>
+              <div className="mt-3 rounded-2xl bg-white/10 p-4">
+                <p className="text-sm font-black text-amber-200">Cadangan jawapan berdasarkan DSKP dan kandungan buku teks</p>
+                <p className="mt-2 text-sm leading-relaxed text-white/85">{card.suggestedAnswer}</p>
+              </div>
+              <div className="mt-3 grid gap-2 sm:grid-cols-2">
+                {card.answerGuide.map((guide) => (
+                  <div key={guide} className="rounded-xl bg-white/10 p-3 text-sm font-semibold text-white/85">
+                    {guide}
+                  </div>
+                ))}
+              </div>
             </div>
           )}
         </div>
@@ -1505,8 +1555,19 @@ function QuizZone({ chapter, progress, setProgress, addXp }) {
 
 function GallerySection({ chapter }) {
   const [active, setActive] = useState(null)
+  const activeItem = active !== null ? chapter.gallery[active] : null
+
+  useEffect(() => {
+    if (active === null) return undefined
+    const closeOnEscape = (event) => {
+      if (event.key === 'Escape') setActive(null)
+    }
+    window.addEventListener('keydown', closeOnEscape)
+    return () => window.removeEventListener('keydown', closeOnEscape)
+  }, [active])
+
   return (
-    <section id="galeri" className="section-shell">
+    <section id="galeri" className="section-shell" style={{ zIndex: active !== null ? 80 : 1 }}>
       <SectionTitle eyebrow="Galeri Gambar Pendidikan" title="Visual interaktif untuk analisis sejarah dan jelajah galeri." icon={GalleryHorizontalEnd} />
       <div className="grid gap-4 md:grid-cols-2">
         {chapter.gallery.map((item, index) => (
@@ -1524,17 +1585,35 @@ function GallerySection({ chapter }) {
           </button>
         ))}
       </div>
-      {active !== null && (
-        <div className="fixed inset-0 z-[70] grid place-items-center bg-black/80 p-4" onClick={() => setActive(null)}>
-          <div className="max-w-4xl overflow-hidden rounded-2xl bg-white text-slate-950" onClick={(event) => event.stopPropagation()}>
-            <img src={chapter.gallery[active].img} alt={chapter.gallery[active].title} className="max-h-[60vh] w-full object-cover" />
-            <div className="p-5">
-              <div className="flex items-start justify-between gap-4">
-                <div>
-                  <h3 className="text-2xl font-black tracking-normal">{chapter.gallery[active].title}</h3>
-                  <p className="mt-2">{chapter.gallery[active].prompt}</p>
+      {activeItem && (
+        <div className="fixed inset-0 z-[90] grid place-items-center bg-black/85 p-3 sm:p-6" onClick={() => setActive(null)}>
+          <div
+            className="relative flex max-h-[92vh] w-full max-w-6xl flex-col overflow-hidden rounded-2xl bg-white text-slate-950 shadow-2xl"
+            onClick={(event) => event.stopPropagation()}
+          >
+            <button
+              type="button"
+              aria-label="Tutup galeri"
+              title="Tutup"
+              onClick={() => setActive(null)}
+              className="absolute right-3 top-3 z-10 grid size-12 place-items-center rounded-full bg-white/95 text-slate-950 shadow-xl hover:bg-amber-100"
+            >
+              <X className="size-6" />
+            </button>
+            <div className="min-h-0 flex-1 overflow-auto bg-slate-950">
+              <img
+                src={activeItem.img}
+                alt={activeItem.title}
+                className="mx-auto block h-auto max-h-none w-full max-w-full object-contain sm:max-h-[76vh] sm:w-auto"
+              />
+            </div>
+            <div className="shrink-0 border-t border-slate-200 bg-white p-4 sm:p-5">
+              <div className="pr-14">
+                <div className="mb-2 inline-flex rounded-full bg-amber-200 px-3 py-1 text-xs font-black text-[#081a33]">
+                  {activeItem.source}
                 </div>
-                <button aria-label="Tutup" onClick={() => setActive(null)}><X /></button>
+                <h3 className="text-xl font-black tracking-normal sm:text-2xl">{activeItem.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-slate-700 sm:text-base">{activeItem.prompt}</p>
               </div>
             </div>
           </div>
@@ -1546,7 +1625,6 @@ function GallerySection({ chapter }) {
 
 function TeacherPanel({ chapter }) {
   const materials = teacherMaterialLinks(chapter)
-  const notebook = notebookMaterials[chapter.title]
   const activities = [
     'Jelajah galeri: murid bergerak mengikut stesen visual dan menulis inferens.',
     'Fikir-Pasang-Kongsi: bincang soalan KBAT sebelum membentang hujah.',
@@ -1584,17 +1662,6 @@ function TeacherPanel({ chapter }) {
               <ImageIcon className="size-4" />
             </a>
           ))}
-          {notebook?.pdf && (
-            <a
-              href={assetUrl(notebook.pdf)}
-              target="_blank"
-              rel="noreferrer"
-              className="mb-3 flex w-full items-center justify-between rounded-2xl bg-amber-100 p-3 text-left font-bold text-[#081a33]"
-            >
-              <span>Nota PDF NotebookLM</span>
-              <Download className="size-4" />
-            </a>
-          )}
           <div className="mt-4 rounded-2xl border border-amber-300/40 bg-amber-200/20 p-4 text-sm">
             <p className="font-black">Panduan DSKP</p>
             <p className="mt-2">
@@ -1613,15 +1680,103 @@ function Chatbot({ chapters }) {
   const [message, setMessage] = useState('')
   const [reply, setReply] = useState('Tanya tentang bab, istilah atau cara menjawab KBAT.')
 
+  const normalize = (value) =>
+    value
+      .toLowerCase()
+      .replace(/[^\p{L}\p{N}\s-]/gu, ' ')
+      .replace(/\s+/g, ' ')
+      .trim()
+
+  const chapterSearchText = (chapter) => {
+    const terms = chapter.terms.flatMap(([term, meaning]) => [term, meaning])
+    const dates = chapter.dates.flatMap(([date, event]) => [date, event])
+    const people = chapterPeople[chapter.title] ?? []
+    return normalize(
+      [
+        chapter.title,
+        chapter.summary,
+        ...chapter.themes,
+        ...chapter.notes,
+        ...terms,
+        ...dates,
+        ...chapter.learning,
+        ...chapter.thinking,
+        ...chapter.values,
+        ...people,
+      ].join(' '),
+    )
+  }
+
+  const findBestChapter = (question) => {
+    const words = normalize(question)
+      .split(' ')
+      .filter((word) => word.length > 3 && !['apakah', 'bagaimana', 'mengapa', 'kenapa', 'jelaskan', 'berikan', 'senaraikan', 'dalam'].includes(word))
+
+    return chapters
+      .map((chapter, index) => {
+        const text = chapterSearchText(chapter)
+        const chapterNumber = index + 1
+        const titleHit = text.includes(normalize(chapter.title)) && normalize(question).includes(normalize(chapter.title)) ? 8 : 0
+        const numberHit =
+          normalize(question).includes(`bab ${chapterNumber}`) || normalize(question).includes(`bab${chapterNumber}`) ? 12 : 0
+        const phraseHits = [...chapter.themes, ...chapter.terms.map(([term]) => term), ...chapter.dates.map(([date]) => date)]
+          .filter((phrase) => normalize(question).includes(normalize(phrase)))
+          .length * 5
+        const wordHits = words.filter((word) => text.includes(word)).length
+        return { chapter, score: titleHit + numberHit + phraseHits + wordHits }
+      })
+      .sort((a, b) => b.score - a.score)[0]
+  }
+
+  const formatList = (items) => items.slice(0, 5).map((item, index) => `${index + 1}. ${item}`).join(' ')
+
   const ask = () => {
-    const lower = message.toLowerCase()
-    const chapter = chapters.find((item) => lower.includes(item.title.toLowerCase()) || item.themes.some((theme) => lower.includes(theme)))
-    if (chapter) {
-      setReply(`${chapter.title}: ${chapter.summary} Kata kunci penting ialah ${chapter.themes.join(', ')}.`)
-    } else if (lower.includes('kbat')) {
+    const lower = normalize(message)
+    if (!lower) {
+      setReply('Sila taip soalan ringkas, contohnya “isi penting Bab 5”, “maksud kedaulatan” atau “tarikh MA63”.')
+      return
+    }
+
+    if (lower.includes('kbat')) {
       setReply('Jawapan KBAT yang kuat ada pendirian, bukti sejarah, kesan dan pengajaran. Gunakan kata hubung seperti kerana, akibatnya dan oleh itu.')
+      return
+    }
+
+    const match = findBestChapter(lower)
+    if (match?.score > 0) {
+      const chapter = match.chapter
+      const term = chapter.terms.find(([name]) => lower.includes(normalize(name)))
+      const date = chapter.dates.find(([dateValue]) => lower.includes(normalize(dateValue)))
+      const wantsNotes = ['isi penting', 'poin', 'point', 'key point', 'nota', 'ringkasan'].some((keyword) => lower.includes(keyword))
+      const wantsDates = ['tarikh', 'kronologi', 'tahun', 'bila'].some((keyword) => lower.includes(keyword))
+      const wantsTerms = ['maksud', 'definisi', 'istilah', 'apa itu'].some((keyword) => lower.includes(keyword))
+      const wantsPeople = ['tokoh', 'siapa', 'peranan'].some((keyword) => lower.includes(keyword))
+
+      if (term || wantsTerms) {
+        const [name, meaning] = term ?? chapter.terms[0]
+        setReply(`${chapter.title}. ${name} bermaksud ${meaning} Kata kunci lain: ${chapter.terms.slice(1, 4).map(([item]) => item).join(', ')}.`)
+        return
+      }
+
+      if (date || wantsDates) {
+        const dateText = date ? `${date[0]}: ${date[1]}` : formatList(chapter.dates.map(([dateValue, event]) => `${dateValue}: ${event}`))
+        setReply(`${chapter.title}. Tarikh penting: ${dateText}`)
+        return
+      }
+
+      if (wantsPeople) {
+        setReply(`${chapter.title}. Tokoh atau pihak berkaitan: ${formatList((chapterPeople[chapter.title] ?? []).map((person) => `${person} berperanan dalam perkembangan ${chapter.title}.`))}`)
+        return
+      }
+
+      if (wantsNotes) {
+        setReply(`${chapter.title}. Isi penting: ${formatList(chapter.notes)}`)
+        return
+      }
+
+      setReply(`${chapter.title}: ${chapter.summary} Isi utama: ${formatList(chapter.notes.slice(0, 3))} Kata kunci: ${chapter.themes.join(', ')}.`)
     } else {
-      setReply('Cuba nyatakan tingkatan, bab atau kata kunci sejarah. Saya akan beri ringkasan dan cadangan jawapan.')
+      setReply('Saya belum dapat padankan soalan itu. Cuba gunakan kata kunci seperti kedaulatan, Perlembagaan Persekutuan, YDPA, sistem Persekutuan, MA63, DEB, Rukun Negara, ASEAN atau PBB.')
     }
   }
 
@@ -1631,7 +1786,30 @@ function Chatbot({ chapters }) {
         <div className="mb-3 w-[min(360px,calc(100vw-2rem))] rounded-2xl border border-white/20 bg-white p-4 shadow-2xl dark:bg-slate-900">
           <p className="mb-3 font-black">Pembantu Sejarah Ringkas</p>
           <div className="mb-3 rounded-xl bg-slate-100 p-3 text-sm dark:bg-white/10">{reply}</div>
-          <textarea value={message} onChange={(event) => setMessage(event.target.value)} className="h-24 w-full rounded-xl border border-slate-200 p-3 text-sm outline-none dark:border-white/10 dark:bg-white/10" placeholder="Contoh: jelaskan kedaulatan negara..." />
+          <div className="mb-3 flex flex-wrap gap-2">
+            {['Isi penting Bab 5', 'Maksud kedaulatan', 'Tarikh MA63', 'Tokoh Bab 9'].map((sample) => (
+              <button
+                key={sample}
+                type="button"
+                onClick={() => setMessage(sample)}
+                className="rounded-full bg-amber-100 px-3 py-1 text-xs font-black text-[#081a33] dark:bg-amber-300/20 dark:text-amber-100"
+              >
+                {sample}
+              </button>
+            ))}
+          </div>
+          <textarea
+            value={message}
+            onChange={(event) => setMessage(event.target.value)}
+            onKeyDown={(event) => {
+              if (event.key === 'Enter' && !event.shiftKey) {
+                event.preventDefault()
+                ask()
+              }
+            }}
+            className="h-24 w-full rounded-xl border border-slate-200 p-3 text-sm outline-none dark:border-white/10 dark:bg-white/10"
+            placeholder="Contoh: isi penting Bab 5, maksud kedaulatan, tarikh MA63..."
+          />
           <button className="primary-btn mt-3 w-full justify-center" onClick={ask}>Tanya Pembantu</button>
         </div>
       )}
