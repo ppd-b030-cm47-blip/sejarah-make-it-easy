@@ -1336,6 +1336,14 @@ function DigitalComicSection({ chapters, activeChapter }) {
         title="Flipbook Komik Sejarah"
         icon={BookOpen}
       />
+      <a
+        className="sticky top-28 z-[80] mb-3 ml-auto grid size-12 place-items-center rounded-full bg-[#9d1b32] text-white shadow-2xl shadow-red-950/40 sm:hidden"
+        href="#utama"
+        aria-label="Kembali ke paparan utama"
+        title="Kembali ke paparan utama"
+      >
+        <X className="size-6" />
+      </a>
       <div className="glass-panel overflow-hidden p-4 sm:p-5">
         <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
           <div>
@@ -1343,8 +1351,14 @@ function DigitalComicSection({ chapters, activeChapter }) {
               Halaman {currentPage.number} daripada {pages.length}
             </p>
             <h3 className="mt-1 text-2xl font-black tracking-normal">Bab {currentPage.number}: {currentPage.chapter.title}</h3>
+            <a className="secondary-btn mt-3 w-fit bg-white text-[#081a33] sm:hidden" href="#utama">
+              <X className="size-4" /> Kembali ke Utama
+            </a>
           </div>
           <div className="flex flex-wrap gap-2">
+            <a className="secondary-btn" href="#utama">
+              <X className="size-4" /> Kembali ke Utama
+            </a>
             <button type="button" className="secondary-btn" onClick={() => setZoom((value) => Math.max(0.8, value - 0.15))}>
               <ZoomOut className="size-4" /> Kecil
             </button>
@@ -1396,6 +1410,14 @@ function DigitalComicSection({ chapters, activeChapter }) {
             className="fixed right-3 top-3 z-[100] grid size-12 place-items-center rounded-full bg-white text-slate-950 shadow-2xl hover:bg-amber-100 sm:right-5 sm:top-5"
           >
             <X className="size-6" />
+          </button>
+          <button
+            type="button"
+            aria-label="Kembali ke aplikasi"
+            onClick={() => setFullscreen(false)}
+            className="fixed bottom-24 right-4 z-[100] grid size-14 place-items-center rounded-full bg-[#9d1b32] text-white shadow-2xl shadow-red-950/40 sm:hidden"
+          >
+            <X className="size-7" />
           </button>
           <div className="mb-2 grid gap-2 text-white sm:grid-cols-[1fr_auto_1fr] sm:items-center">
             <button
