@@ -8,6 +8,8 @@ import {
   CalendarDays,
   CheckCircle2,
   ChevronDown,
+  ChevronLeft,
+  ChevronRight,
   Crown,
   Download,
   GalleryHorizontalEnd,
@@ -30,6 +32,8 @@ import {
   Volume2,
   X,
   Zap,
+  ZoomIn,
+  ZoomOut,
 } from 'lucide-react'
 import './App.css'
 import { assetUrl, notebookMaterials } from './notebookMaterials.js'
@@ -611,6 +615,7 @@ const navItems = [
   ['Utama', '#utama'],
   ['Bab', '#tingkatan'],
   ['NotebookLM', '#bahan-notebook'],
+  ['Komik Digital', '#komik-digital'],
   ['Kad KBAT', '#kad-kbat'],
   ['Kuiz', '#kuiz'],
   ['Galeri', '#galeri'],
@@ -820,10 +825,12 @@ function App() {
             />
           </div>
         </section>
+        <DigitalComicSection key={activeChapter.id} chapters={allChapters} activeChapter={activeChapter} />
         <KbatArena chapter={activeChapter} progress={progress} addXp={addXp} />
         <QuizZone key={activeChapter.id} chapter={activeChapter} progress={progress} setProgress={setProgress} addXp={addXp} />
         <GallerySection chapter={activeChapter} />
         <TeacherPanel chapter={activeChapter} />
+        <AppFooter />
         <Chatbot chapters={allChapters} />
         <MobileDock />
       </main>
@@ -842,7 +849,7 @@ function LoadingScreen() {
         <div className="mx-auto mb-6 grid size-20 place-items-center rounded-2xl border border-amber-300/40 bg-white/10 shadow-2xl shadow-amber-400/20 backdrop-blur">
           <History className="size-10 text-amber-300" />
         </div>
-        <h1 className="text-3xl font-black tracking-normal">Sejarah: Make It Easy</h1>
+        <h1 className="text-3xl font-black tracking-normal">Skor A Sejarah</h1>
         <p className="mt-3 text-sm text-slate-300">Menyediakan ruang pembelajaran interaktif...</p>
         <div className="mx-auto mt-6 h-2 w-64 overflow-hidden rounded-full bg-white/10">
           <motion.div
@@ -865,7 +872,7 @@ function TopNav({ dark, setDark, musicOn, setMusicOn, query, setQuery, searchRes
           <span className="grid size-9 place-items-center rounded-xl bg-[#9d1b32] text-amber-200 sm:size-10">
             <Landmark className="size-5" />
           </span>
-          <span className="hidden sm:block">Sejarah Mudah</span>
+          <span className="hidden sm:block">Skor A Sejarah</span>
         </a>
         <nav className="hidden flex-1 justify-center gap-1 lg:flex">
           {navItems.map(([item, href]) => (
@@ -915,14 +922,15 @@ function MobileDock() {
     ['#utama', Landmark, 'Utama'],
     ['#tingkatan', GraduationCap, 'Bab'],
     ['#bahan-notebook', BookOpen, 'Bahan'],
+    ['#komik-digital', BookOpen, 'Komik'],
     ['#kad-kbat', Brain, 'KBAT'],
     ['#kuiz', ShieldCheck, 'Kuiz'],
     ['#galeri', GalleryHorizontalEnd, 'Galeri'],
   ]
   return (
-    <nav className="fixed bottom-3 left-2 right-2 z-50 grid grid-cols-6 rounded-2xl border border-white/30 bg-white/90 p-2 shadow-2xl backdrop-blur-xl dark:border-white/10 dark:bg-slate-950/90 sm:hidden">
+    <nav className="fixed bottom-3 left-2 right-2 z-50 flex overflow-x-auto rounded-2xl border border-white/30 bg-white/90 p-2 shadow-2xl backdrop-blur-xl dark:border-white/10 dark:bg-slate-950/90 sm:hidden">
       {items.map(([href, Icon, label]) => (
-        <a key={href} href={href} className="flex min-h-12 flex-col items-center justify-center gap-1 rounded-xl text-[0.62rem] font-black text-slate-700 dark:text-slate-100">
+        <a key={href} href={href} className="flex min-h-12 min-w-[4.2rem] flex-col items-center justify-center gap-1 rounded-xl text-[0.62rem] font-black text-slate-700 dark:text-slate-100">
           <Icon className="size-4" />
           {label}
         </a>
@@ -960,7 +968,7 @@ function Hero({ progress }) {
             Aplikasi PdP Sejarah Tingkatan 5
           </div>
           <h1 className="max-w-4xl text-4xl font-black leading-[1.04] tracking-normal text-[#081a33] dark:text-white sm:text-5xl md:text-7xl">
-            Sejarah: Make It Easy
+            Skor A Sejarah
           </h1>
           <p className="mt-5 max-w-2xl text-lg font-semibold text-slate-700 dark:text-slate-200 sm:text-xl">
             Belajar Sejarah Dengan Mudah dan Menyeronokkan
@@ -1262,6 +1270,162 @@ function LearningActivities({ chapter }) {
         </article>
       </div>
     </div>
+  )
+}
+
+function DigitalComicSection({ chapters, activeChapter }) {
+  const initialPage = Math.max(0, chapters.findIndex((chapter) => chapter.id === activeChapter.id))
+  const [pageIndex, setPageIndex] = useState(initialPage)
+  const [direction, setDirection] = useState(1)
+  const [zoom, setZoom] = useState(1)
+  const [fullscreen, setFullscreen] = useState(false)
+
+  const pages = chapters.map((chapter, index) => ({
+    chapter,
+    number: index + 1,
+    image: assetUrl(`komik-digital/bab-${String(index + 1).padStart(2, '0')}.png`),
+  }))
+  const currentPage = pages[pageIndex] ?? pages[0]
+
+  const turnTo = (nextIndex, nextDirection) => {
+    setDirection(nextDirection)
+    setPageIndex((nextIndex + pages.length) % pages.length)
+  }
+
+  const goPrevious = () => {
+    turnTo(pageIndex - 1, -1)
+  }
+
+  const goNext = () => {
+    turnTo(pageIndex + 1, 1)
+  }
+
+  useEffect(() => {
+    if (!fullscreen) return undefined
+    const closeOnEscape = (event) => {
+      if (event.key === 'Escape') setFullscreen(false)
+    }
+    window.addEventListener('keydown', closeOnEscape)
+    return () => window.removeEventListener('keydown', closeOnEscape)
+  }, [fullscreen])
+
+  const pageImage = (
+    <AnimatePresence mode="wait">
+      <motion.div
+        key={currentPage.number}
+        initial={{ rotateY: direction > 0 ? -72 : 72, opacity: 0.45, scale: 0.98 }}
+        animate={{ rotateY: 0, opacity: 1, scale: 1 }}
+        exit={{ rotateY: direction > 0 ? 72 : -72, opacity: 0.35, scale: 0.98 }}
+        transition={{ duration: 0.42, ease: 'easeInOut' }}
+        className="mx-auto rounded-xl bg-white p-2 shadow-2xl shadow-black/30"
+        style={{ transformOrigin: direction > 0 ? 'left center' : 'right center', width: `${zoom * 100}%` }}
+      >
+        <img
+          src={currentPage.image}
+          alt={`Halaman ${currentPage.number}: ${currentPage.chapter.title}`}
+          className="block h-auto w-full rounded-lg"
+        />
+      </motion.div>
+    </AnimatePresence>
+  )
+
+  return (
+    <section id="komik-digital" className="section-shell scroll-mt-28">
+      <SectionTitle
+        eyebrow="Komik Digital Murid"
+        title="Flipbook Komik Sejarah"
+        icon={BookOpen}
+      />
+      <div className="glass-panel overflow-hidden p-4 sm:p-5">
+        <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
+          <div>
+            <p className="text-sm font-black uppercase tracking-[.16em] text-[#9d1b32] dark:text-amber-300">
+              Halaman {currentPage.number} daripada {pages.length}
+            </p>
+            <h3 className="mt-1 text-2xl font-black tracking-normal">Bab {currentPage.number}: {currentPage.chapter.title}</h3>
+          </div>
+          <div className="flex flex-wrap gap-2">
+            <button type="button" className="secondary-btn" onClick={() => setZoom((value) => Math.max(0.8, value - 0.15))}>
+              <ZoomOut className="size-4" /> Kecil
+            </button>
+            <button type="button" className="secondary-btn" onClick={() => setZoom((value) => Math.min(1.8, value + 0.15))}>
+              <ZoomIn className="size-4" /> Besar
+            </button>
+            <button type="button" className="primary-btn" onClick={() => setFullscreen(true)}>
+              <BookOpen className="size-4" /> Buka Skrin Penuh
+            </button>
+          </div>
+        </div>
+
+        <div className="rounded-2xl border border-slate-200 bg-slate-950 p-3 dark:border-white/10 sm:p-4">
+          <div className="mb-3 flex items-center justify-between gap-3">
+            <button type="button" className="secondary-btn" onClick={goPrevious}>
+              <ChevronLeft className="size-4" /> Sebelum
+            </button>
+            <span className="rounded-full bg-amber-200 px-3 py-1 text-xs font-black text-[#081a33]">
+              Zum {Math.round(zoom * 100)}%
+            </span>
+            <button type="button" className="secondary-btn" onClick={goNext}>
+              Selepas <ChevronRight className="size-4" />
+            </button>
+          </div>
+          <div className="relative max-h-[82vh] min-h-[560px] overflow-auto rounded-xl bg-[linear-gradient(90deg,#111827,#ffffff_8%,#ffffff_92%,#111827)] p-3">
+            <div className="pointer-events-none absolute inset-y-3 left-1/2 z-10 w-1 -translate-x-1/2 rounded-full bg-slate-900/15" />
+            <div style={{ perspective: '1800px' }}>{pageImage}</div>
+          </div>
+          <div className="mt-3 flex justify-center gap-1">
+            {pages.map((page, index) => (
+              <button
+                key={page.number}
+                type="button"
+                aria-label={`Pergi ke halaman ${page.number}`}
+                onClick={() => turnTo(index, index > pageIndex ? 1 : -1)}
+                className={`h-2.5 rounded-full transition-all ${index === pageIndex ? 'w-8 bg-amber-300' : 'w-2.5 bg-white/35'}`}
+              />
+            ))}
+          </div>
+        </div>
+      </div>
+      {fullscreen && (
+        <div className="fixed inset-0 z-[95] flex flex-col bg-slate-950 p-2 sm:p-4">
+          <button
+            type="button"
+            aria-label="Tutup skrin penuh"
+            title="Tutup"
+            onClick={() => setFullscreen(false)}
+            className="fixed right-3 top-3 z-[100] grid size-12 place-items-center rounded-full bg-white text-slate-950 shadow-2xl hover:bg-amber-100 sm:right-5 sm:top-5"
+          >
+            <X className="size-6" />
+          </button>
+          <div className="mb-2 grid gap-2 text-white sm:grid-cols-[1fr_auto_1fr] sm:items-center">
+            <button
+              type="button"
+              className="primary-btn justify-center bg-white text-[#081a33]"
+              onClick={() => setFullscreen(false)}
+            >
+              <X className="size-4" /> Kembali ke Aplikasi
+            </button>
+            <div className="text-center">
+              <p className="text-xs font-black uppercase tracking-[.16em] text-amber-200">
+                Halaman {currentPage.number} daripada {pages.length}
+              </p>
+              <p className="font-black">Bab {currentPage.number}: {currentPage.chapter.title}</p>
+            </div>
+            <div className="grid grid-cols-2 gap-2">
+              <button type="button" className="secondary-btn" onClick={goPrevious}>
+                <ChevronLeft className="size-4" /> Sebelum
+              </button>
+              <button type="button" className="secondary-btn" onClick={goNext}>
+                Selepas <ChevronRight className="size-4" />
+              </button>
+            </div>
+          </div>
+          <div className="min-h-0 flex-1 overflow-auto rounded-2xl bg-[linear-gradient(90deg,#111827,#ffffff_8%,#ffffff_92%,#111827)] p-2">
+            <div style={{ perspective: '1800px' }}>{pageImage}</div>
+          </div>
+        </div>
+      )}
+    </section>
   )
 }
 
@@ -1672,6 +1836,19 @@ function TeacherPanel({ chapter }) {
         </div>
       </div>
     </section>
+  )
+}
+
+function AppFooter() {
+  return (
+    <footer className="section-shell pb-32 pt-4 sm:pb-10">
+      <div className="rounded-2xl border border-amber-300/30 bg-[#081a33] px-5 py-6 text-center text-white shadow-xl shadow-slate-900/20">
+        <p className="text-sm font-semibold text-amber-200">Dihasilkan oleh:</p>
+        <p className="mt-2 text-base font-black sm:text-lg">
+          USTP dan SISC+ Sejarah, Sektor Pembelajaran, PPD Kuala Selangor
+        </p>
+      </div>
+    </footer>
   )
 }
 
