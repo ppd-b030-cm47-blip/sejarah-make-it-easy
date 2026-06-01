@@ -1002,6 +1002,7 @@ function MobileFeatureOverlay({ panel, openPanel, closePanel, activeChapter, all
             key={`mobile-${activeChapter.id}`}
             chapters={allChapters}
             activeChapter={activeChapter}
+            onExit={closePanel}
           />
         )}
         {panel === 'kbat' && <KbatArena chapter={activeChapter} progress={progress} addXp={addXp} />}
@@ -1360,7 +1361,7 @@ function LearningActivities({ chapter, onOpenInfographic }) {
   )
 }
 
-function DigitalComicSection({ chapters, activeChapter }) {
+function DigitalComicSection({ chapters, activeChapter, onExit }) {
   const initialPage = Math.max(0, chapters.findIndex((chapter) => chapter.id === activeChapter.id))
   const [pageIndex, setPageIndex] = useState(initialPage)
   const [direction, setDirection] = useState(1)
@@ -1385,6 +1386,12 @@ function DigitalComicSection({ chapters, activeChapter }) {
 
   const goNext = () => {
     turnTo(pageIndex + 1, 1)
+  }
+
+  const handleExit = (event) => {
+    if (!onExit) return
+    event.preventDefault()
+    onExit()
   }
 
   useEffect(() => {
@@ -1432,6 +1439,9 @@ function DigitalComicSection({ chapters, activeChapter }) {
             <h3 className="mt-1 text-2xl font-black tracking-normal">Bab {currentPage.number}: {currentPage.chapter.title}</h3>
           </div>
           <div className="flex flex-wrap gap-2">
+            <a className="secondary-btn" href="#utama" onClick={handleExit}>
+              <X className="size-4" /> Kembali ke Utama
+            </a>
             <button type="button" className="secondary-btn" onClick={() => setZoom((value) => Math.max(0.8, value - 0.15))}>
               <ZoomOut className="size-4" /> Kecil
             </button>
