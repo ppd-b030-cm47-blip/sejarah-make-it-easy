@@ -689,6 +689,7 @@ function useLocalStorage(key, initialValue) {
 function App() {
   const [activeForm, setActiveForm] = useState(forms[0])
   const [activeChapter, setActiveChapter] = useState(forms[0].chapters[0])
+  const [mobilePanel, setMobilePanel] = useState(null)
   const [query, setQuery] = useState('')
   const [dark, setDark] = useLocalStorage('sejarah-dark-mode', true)
   const [progress, setProgress] = useLocalStorage('sejarah-progress', {
@@ -832,7 +833,16 @@ function App() {
         <TeacherPanel chapter={activeChapter} />
         <AppFooter />
         <Chatbot chapters={allChapters} />
-        <MobileDock />
+        <MobileDock openPanel={setMobilePanel} />
+        <MobileFeatureOverlay
+          panel={mobilePanel}
+          closePanel={() => setMobilePanel(null)}
+          activeChapter={activeChapter}
+          allChapters={allChapters}
+          progress={progress}
+          setProgress={setProgress}
+          addXp={addXp}
+        />
       </main>
     </div>
   )
@@ -917,25 +927,96 @@ function TopNav({ dark, setDark, musicOn, setMusicOn, query, setQuery, searchRes
   )
 }
 
-function MobileDock() {
+function MobileDock({ openPanel }) {
   const items = [
-    ['#utama', Landmark, 'Utama'],
-    ['#tingkatan', GraduationCap, 'Bab'],
-    ['#bahan-notebook', BookOpen, 'Bahan'],
-    ['#komik-digital', BookOpen, 'Komik'],
-    ['#kad-kbat', Brain, 'KBAT'],
-    ['#kuiz', ShieldCheck, 'Kuiz'],
-    ['#galeri', GalleryHorizontalEnd, 'Galeri'],
+    { href: '#utama', icon: Landmark, label: 'Utama' },
+    { href: '#tingkatan', icon: GraduationCap, label: 'Bab' },
+    { panel: 'bahan', icon: BookOpen, label: 'Bahan' },
+    { panel: 'komik', icon: BookOpen, label: 'Komik' },
+    { panel: 'kbat', icon: Brain, label: 'KBAT' },
+    { panel: 'kuiz', icon: ShieldCheck, label: 'Kuiz' },
+    { panel: 'galeri', icon: GalleryHorizontalEnd, label: 'Galeri' },
   ]
   return (
     <nav className="fixed bottom-3 left-2 right-2 z-50 flex overflow-x-auto rounded-2xl border border-white/30 bg-white/90 p-2 shadow-2xl backdrop-blur-xl dark:border-white/10 dark:bg-slate-950/90 sm:hidden">
-      {items.map(([href, Icon, label]) => (
-        <a key={href} href={href} className="flex min-h-12 min-w-[4.2rem] flex-col items-center justify-center gap-1 rounded-xl text-[0.62rem] font-black text-slate-700 dark:text-slate-100">
+      {items.map(({ href, panel, icon: Icon, label }) => (
+        <a
+          key={href ?? panel}
+          href={href ?? '#'}
+          onClick={(event) => {
+            if (!panel) return
+            event.preventDefault()
+            openPanel(panel)
+          }}
+          className="flex min-h-12 min-w-[4.2rem] flex-col items-center justify-center gap-1 rounded-xl text-[0.62rem] font-black text-slate-700 dark:text-slate-100"
+        >
           <Icon className="size-4" />
           {label}
         </a>
       ))}
     </nav>
+  )
+}
+
+function MobileFeatureOverlay({ panel, closePanel, activeChapter, allChapters, progress, setProgress, addXp }) {
+  const panelInfo = {
+    bahan: ['Bahan NotebookLM', BookOpen],
+    komik: ['Komik Digital', BookOpen],
+    kbat: ['Kad KBAT', Brain],
+    kuiz: ['Kuiz', ShieldCheck],
+    galeri: ['Galeri', GalleryHorizontalEnd],
+  }
+  if (!panel) return null
+  const [title, Icon] = panelInfo[panel]
+
+  return (
+    <div className="fixed inset-0 z-[90] bg-slate-50 text-slate-950 dark:bg-[#07111f] dark:text-white sm:hidden">
+      <div className="sticky top-0 z-20 border-b border-slate-200 bg-white/95 px-4 py-3 shadow-xl backdrop-blur dark:border-white/10 dark:bg-slate-950/95">
+        <div className="flex items-center justify-between gap-3">
+          <div className="min-w-0">
+            <p className="flex items-center gap-2 text-xs font-black uppercase tracking-[.16em] text-[#9d1b32] dark:text-amber-300">
+              <Icon className="size-4" /> Paparan Telefon
+            </p>
+            <h2 className="truncate text-xl font-black tracking-normal">{title}</h2>
+          </div>
+          <button
+            type="button"
+            onClick={closePanel}
+            className="grid size-11 shrink-0 place-items-center rounded-full bg-[#9d1b32] text-white shadow-lg"
+            aria-label="Kembali ke aplikasi"
+            title="Kembali ke aplikasi"
+          >
+            <X className="size-6" />
+          </button>
+        </div>
+      </div>
+      <div className="h-[calc(100vh-76px)] overflow-y-auto pb-8">
+        {panel === 'bahan' && (
+          <div className="px-4 pb-8 pt-2">
+            <LearningActivities chapter={activeChapter} />
+          </div>
+        )}
+        {panel === 'komik' && (
+          <DigitalComicSection
+            key={`mobile-${activeChapter.id}`}
+            chapters={allChapters}
+            activeChapter={activeChapter}
+            onExit={closePanel}
+          />
+        )}
+        {panel === 'kbat' && <KbatArena chapter={activeChapter} progress={progress} addXp={addXp} />}
+        {panel === 'kuiz' && (
+          <QuizZone
+            key={`mobile-${activeChapter.id}`}
+            chapter={activeChapter}
+            progress={progress}
+            setProgress={setProgress}
+            addXp={addXp}
+          />
+        )}
+        {panel === 'galeri' && <GallerySection chapter={activeChapter} />}
+      </div>
+    </div>
   )
 }
 
@@ -1273,7 +1354,7 @@ function LearningActivities({ chapter }) {
   )
 }
 
-function DigitalComicSection({ chapters, activeChapter }) {
+function DigitalComicSection({ chapters, activeChapter, onExit }) {
   const initialPage = Math.max(0, chapters.findIndex((chapter) => chapter.id === activeChapter.id))
   const [pageIndex, setPageIndex] = useState(initialPage)
   const [direction, setDirection] = useState(1)
@@ -1298,6 +1379,12 @@ function DigitalComicSection({ chapters, activeChapter }) {
 
   const goNext = () => {
     turnTo(pageIndex + 1, 1)
+  }
+
+  const handleExit = (event) => {
+    if (!onExit) return
+    event.preventDefault()
+    onExit()
   }
 
   useEffect(() => {
@@ -1339,6 +1426,7 @@ function DigitalComicSection({ chapters, activeChapter }) {
       <a
         className="sticky top-28 z-[80] mb-3 ml-auto grid size-12 place-items-center rounded-full bg-[#9d1b32] text-white shadow-2xl shadow-red-950/40 sm:hidden"
         href="#utama"
+        onClick={handleExit}
         aria-label="Kembali ke paparan utama"
         title="Kembali ke paparan utama"
       >
@@ -1351,12 +1439,12 @@ function DigitalComicSection({ chapters, activeChapter }) {
               Halaman {currentPage.number} daripada {pages.length}
             </p>
             <h3 className="mt-1 text-2xl font-black tracking-normal">Bab {currentPage.number}: {currentPage.chapter.title}</h3>
-            <a className="secondary-btn mt-3 w-fit bg-white text-[#081a33] sm:hidden" href="#utama">
+            <a className="secondary-btn mt-3 w-fit bg-white text-[#081a33] sm:hidden" href="#utama" onClick={handleExit}>
               <X className="size-4" /> Kembali ke Utama
             </a>
           </div>
           <div className="flex flex-wrap gap-2">
-            <a className="secondary-btn" href="#utama">
+            <a className="secondary-btn" href="#utama" onClick={handleExit}>
               <X className="size-4" /> Kembali ke Utama
             </a>
             <button type="button" className="secondary-btn" onClick={() => setZoom((value) => Math.max(0.8, value - 0.15))}>
