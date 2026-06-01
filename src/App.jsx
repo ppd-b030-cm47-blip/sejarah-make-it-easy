@@ -836,6 +836,7 @@ function App() {
         <MobileDock openPanel={setMobilePanel} />
         <MobileFeatureOverlay
           panel={mobilePanel}
+          openPanel={setMobilePanel}
           closePanel={() => setMobilePanel(null)}
           activeChapter={activeChapter}
           allChapters={allChapters}
@@ -884,9 +885,9 @@ function TopNav({ dark, setDark, musicOn, setMusicOn, query, setQuery, searchRes
           </span>
           <span className="hidden sm:block">Skor A Sejarah</span>
         </a>
-        <nav className="hidden flex-1 justify-center gap-1 lg:flex">
+        <nav className="hidden flex-1 justify-center gap-1 overflow-x-auto md:flex">
           {navItems.map(([item, href]) => (
-            <a key={item} href={href} className="nav-pill">
+            <a key={item} href={href} className="nav-pill shrink-0">
               {item}
             </a>
           ))}
@@ -958,7 +959,7 @@ function MobileDock({ openPanel }) {
   )
 }
 
-function MobileFeatureOverlay({ panel, closePanel, activeChapter, allChapters, progress, setProgress, addXp }) {
+function MobileFeatureOverlay({ panel, openPanel, closePanel, activeChapter, allChapters, progress, setProgress, addXp }) {
   const panelInfo = {
     bahan: ['Bahan NotebookLM', BookOpen],
     komik: ['Komik Digital', BookOpen],
@@ -993,7 +994,7 @@ function MobileFeatureOverlay({ panel, closePanel, activeChapter, allChapters, p
       <div className="h-[calc(100vh-76px)] overflow-y-auto pb-8">
         {panel === 'bahan' && (
           <div className="px-4 pb-8 pt-2">
-            <LearningActivities chapter={activeChapter} />
+            <LearningActivities chapter={activeChapter} onOpenInfographic={() => openPanel('galeri')} />
           </div>
         )}
         {panel === 'komik' && (
@@ -1001,7 +1002,6 @@ function MobileFeatureOverlay({ panel, closePanel, activeChapter, allChapters, p
             key={`mobile-${activeChapter.id}`}
             chapters={allChapters}
             activeChapter={activeChapter}
-            onExit={closePanel}
           />
         )}
         {panel === 'kbat' && <KbatArena chapter={activeChapter} progress={progress} addXp={addXp} />}
@@ -1280,7 +1280,7 @@ function InfoList({ title, items }) {
   )
 }
 
-function LearningActivities({ chapter }) {
+function LearningActivities({ chapter, onOpenInfographic }) {
   const material = notebookMaterials[chapter.title]
   if (!material) return null
   const previewImage = material.images?.[0]
@@ -1309,9 +1309,15 @@ function LearningActivities({ chapter }) {
             <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">
               Teliti bahan visual, kenal pasti fakta utama dan buat inferens sejarah.
             </p>
-            <a className="secondary-btn mt-3" href="#galeri">
-              <ImageIcon className="size-4" /> Lihat Infografik
-            </a>
+            {onOpenInfographic ? (
+              <button type="button" className="secondary-btn mt-3" onClick={onOpenInfographic}>
+                <ImageIcon className="size-4" /> Lihat Infografik
+              </button>
+            ) : (
+              <a className="secondary-btn mt-3" href="#galeri">
+                <ImageIcon className="size-4" /> Lihat Infografik
+              </a>
+            )}
           </div>
         </article>
         <article className="activity-card">
@@ -1354,7 +1360,7 @@ function LearningActivities({ chapter }) {
   )
 }
 
-function DigitalComicSection({ chapters, activeChapter, onExit }) {
+function DigitalComicSection({ chapters, activeChapter }) {
   const initialPage = Math.max(0, chapters.findIndex((chapter) => chapter.id === activeChapter.id))
   const [pageIndex, setPageIndex] = useState(initialPage)
   const [direction, setDirection] = useState(1)
@@ -1379,12 +1385,6 @@ function DigitalComicSection({ chapters, activeChapter, onExit }) {
 
   const goNext = () => {
     turnTo(pageIndex + 1, 1)
-  }
-
-  const handleExit = (event) => {
-    if (!onExit) return
-    event.preventDefault()
-    onExit()
   }
 
   useEffect(() => {
@@ -1423,15 +1423,6 @@ function DigitalComicSection({ chapters, activeChapter, onExit }) {
         title="Flipbook Komik Sejarah"
         icon={BookOpen}
       />
-      <a
-        className="sticky top-28 z-[80] mb-3 ml-auto grid size-12 place-items-center rounded-full bg-[#9d1b32] text-white shadow-2xl shadow-red-950/40 sm:hidden"
-        href="#utama"
-        onClick={handleExit}
-        aria-label="Kembali ke paparan utama"
-        title="Kembali ke paparan utama"
-      >
-        <X className="size-6" />
-      </a>
       <div className="glass-panel overflow-hidden p-4 sm:p-5">
         <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
           <div>
@@ -1439,14 +1430,8 @@ function DigitalComicSection({ chapters, activeChapter, onExit }) {
               Halaman {currentPage.number} daripada {pages.length}
             </p>
             <h3 className="mt-1 text-2xl font-black tracking-normal">Bab {currentPage.number}: {currentPage.chapter.title}</h3>
-            <a className="secondary-btn mt-3 w-fit bg-white text-[#081a33] sm:hidden" href="#utama" onClick={handleExit}>
-              <X className="size-4" /> Kembali ke Utama
-            </a>
           </div>
           <div className="flex flex-wrap gap-2">
-            <a className="secondary-btn" href="#utama" onClick={handleExit}>
-              <X className="size-4" /> Kembali ke Utama
-            </a>
             <button type="button" className="secondary-btn" onClick={() => setZoom((value) => Math.max(0.8, value - 0.15))}>
               <ZoomOut className="size-4" /> Kecil
             </button>
